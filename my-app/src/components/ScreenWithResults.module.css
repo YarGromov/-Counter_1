@@ -1,0 +1,41 @@
+.ScreenWithResults {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 400px;
+    height: 300px;
+    border: 2px solid #a2ddec;
+    border-radius: 10px;
+}
+
+.firstContainer{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 370px;
+    height: 150px;
+    border: 2px solid #a2ddec;
+    border-radius: 10px;
+    color: #6ddffa;
+    font-size: 70px;
+    font-weight: bold;
+}
+
+.secondContainer{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 370px;
+    height: 100px;
+    border: 2px solid #a2ddec;
+    border-radius: 10px;
+}
+.secondContainer button {
+    background-color: #6ddffb;
+    border: 2px solid #a2ddec;
+    border-radius: 10px;
+    height: 45px;
+    width: 100px;
+    font-size: 30px;
+}
