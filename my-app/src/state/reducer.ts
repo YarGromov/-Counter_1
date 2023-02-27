@@ -1,10 +1,16 @@
-import {store} from "./store";
 
-const defaultState = {
+export type CountStateType = {
+    count: number
+}
+const defaultState: CountStateType = {
     count: 0
 }
 
-export const reducer = (state = defaultState, action: any) => {
+export type ActionType = {
+    type: "INCREMENT" | "RESET"
+}
+
+export const resultReducer = (state = defaultState, action: ActionType) => {
     switch (action.type) {
         case 'INCREMENT':
             return {...state, count: state.count + 1};
@@ -14,4 +20,14 @@ export const reducer = (state = defaultState, action: any) => {
             return state;
     }
 }
-export type AppRootStateType = ReturnType<typeof reducer>
+
+export const settingsReducer = (state = defaultState, action: any) => {
+    switch (action.type) {
+        case 'INCREMENT':
+            return {...state, count: state.count + 1};
+        case 'RESET':
+            return {...state, count: 0};
+        default:
+            return state;
+    }
+}

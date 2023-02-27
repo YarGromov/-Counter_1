@@ -1,5 +1,11 @@
-import {legacy_createStore} from "redux";
-import {reducer} from "./reducer";
+import {combineReducers, legacy_createStore} from "redux";
+import {resultReducer, settingsReducer} from "./reducer";
 
-export const store = legacy_createStore(reducer)
+const rootReducer = combineReducers({
+    results: resultReducer,
+    settings: settingsReducer
+})
 
+export const store = legacy_createStore(rootReducer)
+
+export type AppRootStateType = ReturnType<typeof rootReducer>

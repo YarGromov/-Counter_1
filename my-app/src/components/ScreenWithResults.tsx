@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import s from "./ScreenWithResults.module.css";
-import {AppRootStateType, reducer} from "../state/reducer";
+import {AppRootStateType} from "../state/store";
 import {useDispatch, useSelector} from "react-redux";
+import {CountStateType} from "../state/reducer";
 
 export const INCREMENT = 'INCREMENT'
 export const  RESET = 'RESET'
@@ -9,7 +10,7 @@ export const  RESET = 'RESET'
 export const ScreenWithResults = () => {
 
     const dispatch = useDispatch()
-    const count = useSelector<AppRootStateType, number>(state => state.count)
+    const count = useSelector<AppRootStateType, number>(state => state.results.count)
 
     const incrementFunc = () => {
         dispatch({type: INCREMENT})
