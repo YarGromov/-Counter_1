@@ -3,15 +3,17 @@ export type CountStateType = {
     count: number
     maxValue: number
     startValue: number
+    inputValue: number
 }
 const defaultState: CountStateType = {
     count: 0,
     maxValue: 0,
-    startValue: 0
+    startValue: 0,
+    inputValue: 0
 }
 
 export type ReducerActionType = {
-    type: "INCREMENT" | "RESET" | "SET_VALUE" | "MAX_VALUE"
+    type: "INCREMENT" | "RESET" | "SET_VALUE" | "MAX_VALUE" | "INPUT_VALUE"
     payload: number
 }
 
@@ -20,11 +22,13 @@ export const reducer = (state = defaultState, action: ReducerActionType): CountS
         case 'INCREMENT':
             return {...state, count: state.count + 1};
         case 'RESET':
-            return {...state, count: 0};
+            return {...state, count: state.startValue};
         case 'SET_VALUE':
             return {...state, startValue: action.payload, count: action.payload};
         case 'MAX_VALUE':
             return {...state, maxValue: action.payload};
+        case 'INPUT_VALUE':
+            return {...state, inputValue: action.payload};
         default:
             return state;
     }
