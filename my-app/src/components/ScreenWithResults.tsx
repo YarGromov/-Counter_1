@@ -11,6 +11,7 @@ export const ScreenWithResults = () => {
 
     const dispatch = useDispatch()
     const count = useSelector<AppRootStateType, number>(state => state.results.count)
+    const startValue = useSelector<AppRootStateType, number>(state => state.settings.startValue)
 
     const incrementFunc = () => {
         dispatch({type: INCREMENT})
