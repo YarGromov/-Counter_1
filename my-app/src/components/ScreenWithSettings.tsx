@@ -11,11 +11,11 @@ export const ScreenWithSettings = () => {
 
     const maxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         maxValue = e.currentTarget.value;
-        console.log(maxValue)
+        console.log('max value: ' + maxValue)
     }
     const startValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         startValue = e.currentTarget.value;
-        console.log(startValue)
+        console.log('start value: ' + startValue)
     }
 
     const setClick = () => {

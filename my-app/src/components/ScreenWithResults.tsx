@@ -10,11 +10,13 @@ export const  RESET = 'RESET'
 export const ScreenWithResults = () => {
 
     const dispatch = useDispatch()
-    const count = useSelector<AppRootStateType, number>(state => state.results.count)
-    const startValue = useSelector<AppRootStateType, number>(state => state.settings.startValue)
+    const count = useSelector<AppRootStateType, number>(state => state.count)
+    const startValue = useSelector<AppRootStateType, number>(state => state.startValue)
+
 
     const incrementFunc = () => {
         dispatch({type: INCREMENT})
+
     }
     const resetFunc = () => {
         dispatch({type: RESET})
