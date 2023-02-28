@@ -8,6 +8,8 @@ export const ScreenWithSettings = () => {
 
     let maxValue: string;
     let startValue: string;
+    const SET_VALUE = 'SET_VALUE';
+    const MAX_VALUE = 'MAX_VALUE'
 
     const maxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         maxValue = e.currentTarget.value;
@@ -19,8 +21,8 @@ export const ScreenWithSettings = () => {
     }
 
     const setClick = () => {
-        dispatch({type: 'SET_VALUE', payload: Number(startValue)})
-        dispatch({type: 'MAX_VALUE', payload: Number(maxValue)})
+        dispatch({type: SET_VALUE, payload: Number(startValue)})
+        dispatch({type: MAX_VALUE, payload: Number(maxValue)})
     }
      return (
         <div className={s.ScreenWithSettings}>

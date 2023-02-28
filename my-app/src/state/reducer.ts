@@ -29,19 +29,3 @@ export const reducer = (state = defaultState, action: ReducerActionType): CountS
             return state;
     }
 }
-
-// export type SettingReducerActionType = {
-//     type: "SET_VALUE" | "MAX_VALUE"
-//     payload: number
-// }
-//
-// export const settingsReducer = (state = defaultState, action: SettingReducerActionType): CountStateType => {
-//     switch (action.type) {
-//         case 'SET_VALUE':
-//             return {...state, startValue: action.payload};
-//         case 'MAX_VALUE':
-//             return {...state, maxValue: action.payload};
-//         default:
-//             return state;
-//     }
-// }
