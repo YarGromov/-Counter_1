@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from "./ScreenWithResults.module.css";
 import {AppRootStateType} from "../state/store";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,7 +12,7 @@ export const ScreenWithResults = () => {
     const count = useSelector<AppRootStateType, number>(state => state.count)
     const startValue = useSelector<AppRootStateType, number>(state => state.startValue)
     const maxValue = useSelector<AppRootStateType, number>(state => state.maxValue)
-
+    console.log(+count)
     const countStyle = maxValue <= count ? s.red : '';
 
     const incrementFunc = () => {

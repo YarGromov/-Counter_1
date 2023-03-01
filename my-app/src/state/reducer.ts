@@ -3,13 +3,11 @@ export type CountStateType = {
     count: number
     maxValue: number
     startValue: number
-    inputValue: number
 }
 const defaultState: CountStateType = {
     count: 0,
     maxValue: 0,
     startValue: 0,
-    inputValue: 0
 }
 
 export type ReducerActionType = {
@@ -27,8 +25,6 @@ export const reducer = (state = defaultState, action: ReducerActionType): CountS
             return {...state, startValue: action.payload, count: action.payload};
         case 'MAX_VALUE':
             return {...state, maxValue: action.payload};
-        case 'INPUT_VALUE':
-            return {...state, inputValue: action.payload};
         default:
             return state;
     }

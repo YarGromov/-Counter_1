@@ -1,47 +1,39 @@
-import React, {ChangeEvent, ChangeEventHandler, FormEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from './ScreenWithSettings.module.css'
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../state/store";
+import {useDispatch} from "react-redux";
+
 
 
 export const ScreenWithSettings = () => {
-    const dispatch = useDispatch();
-    const inputValue = useSelector<AppRootStateType, number>(state => state.inputValue)
+    const [startValue, setStartValue] = useState<number>(0)
+    const [maxValue, setMaxValue] = useState<number>(0)
 
-    let maxValue: string;
-    let startValue: string;
+    const dispatch = useDispatch();
 
     const SET_VALUE = 'SET_VALUE';
     const MAX_VALUE = 'MAX_VALUE';
-    const INPUT_VALUE = 'INPUT_VALUE'
 
     const maxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        maxValue = e.currentTarget.value;
-        console.log('max value: ' + maxValue)
+        setMaxValue(+e.currentTarget.value);
     }
 
     const startValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        startValue = e.currentTarget.value;
-        console.log('start value: ' + startValue)
+        setStartValue(+e.currentTarget.value);
     }
 
     const setClick = () => {
-        dispatch({type: SET_VALUE, payload: Number(startValue)})
-        dispatch({type: MAX_VALUE, payload: Number(maxValue)})
+        dispatch({type: SET_VALUE, payload: startValue})
+        dispatch({type: MAX_VALUE, payload: maxValue})
     }
 
-    const showInput = (e: FormEvent<HTMLInputElement>) => {
-        let inputV = e.currentTarget.value
-       dispatch({type: INPUT_VALUE, payload: inputV})
-    }
      return (
         <div className={s.ScreenWithSettings}>
             <div className={s.firstContainer}>
                 <div>max value: <input  onChange={maxValueHandler} type="number"/></div>
-                <div>start value: <input onInput={showInput} onChange={startValueHandler} type="number"/></div>
+                <div>start value: <input  onChange={startValueHandler} type="number"/></div>
             </div>
             <div className={s.secondContainer}>
-                <button disabled={inputValue < 0}   onClick={setClick}>set</button>
+                <button disabled={startValue < 0}   onClick={setClick}>set</button>
             </div>
         </div>
     );
