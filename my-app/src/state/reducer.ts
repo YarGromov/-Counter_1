@@ -5,6 +5,7 @@ export type CountStateType = {
     startValue: number
     onInputValue: number
 }
+
 const defaultState: CountStateType = {
     count: 0,
     maxValue: 0,

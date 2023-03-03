@@ -31,10 +31,9 @@ export const ScreenWithSettings = () => {
 
     const onInput = (e: FormEvent<HTMLInputElement>) => {
         setOnInputValue(+e.currentTarget.value)
-        dispatch({type: ON_INPUT_VALUE, payload: onInputValue})
-        console.log("onInputValue " + onInputValue)
+        dispatch({type: ON_INPUT_VALUE, payload: +e.currentTarget.value})
     }
-
+    console.log("onInputValue " + onInputValue)
      return (
         <div className={s.ScreenWithSettings}>
             <div className={s.firstContainer}>
@@ -42,7 +41,7 @@ export const ScreenWithSettings = () => {
                 <div>start value: <input onInput={onInput}  onChange={startValueHandler} type="number"/></div>
             </div>
             <div className={s.secondContainer}>
-                <button disabled={startValue < 0}  onClick={setClick}>set</button>
+                <button disabled={startValue <= 0}  onClick={setClick}>set</button>
             </div>
         </div>
     );
