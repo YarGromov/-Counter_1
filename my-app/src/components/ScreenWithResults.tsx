@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import s from "./ScreenWithResults.module.css";
 import {AppRootStateType} from "../state/store";
 import {useDispatch, useSelector} from "react-redux";
+import {UniversalButton} from "./UniversalButton";
 
 export const INCREMENT = 'INCREMENT'
 export const RESET = 'RESET'
@@ -25,7 +26,7 @@ export const ScreenWithResults = () => {
     }
 
     const getStyleForCount = () => {
-        if (show === 'Incorrect value!'){
+        if (show === 'Incorrect value!') {
             return s.incorrectValue
         }
         if (show === 'Enter values and press "set"') {
@@ -61,6 +62,8 @@ export const ScreenWithResults = () => {
         }
     }, [count, onInputValue, maxValue])
 
+    const incDisabled = !!count && maxValue <= count || count === undefined || maxValue === onInputValue;
+    const resetDisabled = (count === onInputValue) || (onInputValue !== undefined && onInputValue > maxValue) || maxValue === onInputValue;
 
     return (
         <div className={s.ScreenWithResults}>
@@ -68,13 +71,8 @@ export const ScreenWithResults = () => {
                 <div className={getStyleForCount()}>{show}</div>
             </div>
             <div className={s.secondContainer}>
-                <button disabled={!!count && maxValue <= count || count === undefined || maxValue === onInputValue}
-                        onClick={incrementFunc}>inc
-                </button>
-                <button
-                    disabled={(count === onInputValue) || (onInputValue !== undefined && onInputValue > maxValue) || maxValue === onInputValue}
-                    onClick={resetFunc}>reset
-                </button>
+                <UniversalButton name={'inc'} callback={incrementFunc} disabled={incDisabled}/>
+                <UniversalButton name={'reset'} callback={resetFunc} disabled={resetDisabled}/>
             </div>
         </div>
     );

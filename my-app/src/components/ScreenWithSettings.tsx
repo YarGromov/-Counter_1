@@ -1,6 +1,7 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import s from './ScreenWithSettings.module.css'
 import {useDispatch} from "react-redux";
+import {UniversalButton} from "./UniversalButton";
 
 
 export const ScreenWithSettings = () => {
@@ -35,6 +36,9 @@ export const ScreenWithSettings = () => {
         if (maxValue > 0 && onInputValue > maxValue) {
             return s.incorrectFirstContainer
         }
+        if((maxValue === 0) && onInputValue > maxValue) {
+            return s.incorrectFirstContainer
+        }
     }
 
     const MaxValueInput = (e: FormEvent<HTMLInputElement>) => {
@@ -52,6 +56,7 @@ export const ScreenWithSettings = () => {
         dispatch({type: ON_INPUT_VALUE, payload: +e.currentTarget.value})
     }
 
+    const setDisabled = onInputValue < 0 || onInputValue >= maxValue;
 
      return (
         <div className={s.ScreenWithSettings}>
@@ -60,7 +65,7 @@ export const ScreenWithSettings = () => {
                 <div className={startValueInputStyles()}>start value: <input onInput={onInput} type="number"/></div>
             </div>
             <div className={s.secondContainer}>
-                <button disabled={onInputValue < 0 || onInputValue >= maxValue} onClick={setClick}>set</button>
+                <UniversalButton disabled={setDisabled} name={'set'} callback={setClick}/>
             </div>
         </div>
     );
