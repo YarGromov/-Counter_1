@@ -15,7 +15,6 @@ export const ScreenWithResults = () => {
     const maxValue = useSelector<AppRootStateType, number>(state => state.maxValue)
     const onInputValue = useSelector<AppRootStateType, number | undefined>(state => state.onInputValue)
 
-    // const countStyle = count && maxValue <= count ? s.red : '';
 
     const incrementFunc = () => {
         dispatch({type: INCREMENT})
@@ -41,7 +40,6 @@ export const ScreenWithResults = () => {
     }
 
     useEffect(() => {
-        console.log(onInputValue)
         if (count || count === 0) {
             setShow(count.toString())
             if (onInputValue && onInputValue < 0) {
@@ -82,4 +80,3 @@ export const ScreenWithResults = () => {
     );
 };
 
-//show === 'Incorrect value!' ? s.red : countStyle

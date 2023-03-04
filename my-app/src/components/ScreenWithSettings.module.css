@@ -22,6 +22,7 @@
     font-size: 30px;
     font-weight: bold;
 }
+
 .firstContainer input {
     margin-left: 20px;
     height: 25px;
@@ -30,6 +31,14 @@
     border-radius: 5px;
 }
 
+.incorrectFirstContainer input {
+    margin-left: 20px;
+    height: 25px;
+    text-align: center;
+    border: 2px solid #a2ddec;
+    border-radius: 5px;
+    background-color: red;
+}
 
 .secondContainer{
     display: flex;

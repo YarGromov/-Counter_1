@@ -13,9 +13,30 @@ export const ScreenWithSettings = () => {
     const MAX_VALUE = 'MAX_VALUE';
     const ON_INPUT_VALUE = 'ON_INPUT_VALUE';
 
-    // const maxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    //     setMaxValue(+e.currentTarget.value);
-    // }
+    const maxValueInputStyles = () => {
+        if (maxValue < 0) {
+            return s.incorrectFirstContainer
+        }
+        if (maxValue < onInputValue && onInputValue > 0) {
+            return s.incorrectFirstContainer
+        }
+        if ((maxValue !== 0 && onInputValue !== 0) && maxValue === onInputValue){
+            return s.incorrectFirstContainer
+        }
+
+    }
+
+    const startValueInputStyles = () => {
+        if (onInputValue < 0) {
+            return s.incorrectFirstContainer
+        }
+        if ((maxValue !== 0 && onInputValue !== 0) && maxValue === onInputValue){
+            return s.incorrectFirstContainer
+        }
+        if (maxValue > 0 && onInputValue > maxValue) {
+            return s.incorrectFirstContainer
+        }
+    }
 
     const MaxValueInput = (e: FormEvent<HTMLInputElement>) => {
         setMaxValue(+e.currentTarget.value)
@@ -31,13 +52,13 @@ export const ScreenWithSettings = () => {
         setOnInputValue(+e.currentTarget.value)
         dispatch({type: ON_INPUT_VALUE, payload: +e.currentTarget.value})
     }
-    console.log("onInputValue " + onInputValue)
+
 
      return (
         <div className={s.ScreenWithSettings}>
             <div className={s.firstContainer}>
-                <div>max value: <input onInput={MaxValueInput} /*onChange={maxValueHandler}*/ type="number"/></div>
-                <div>start value: <input onInput={onInput} type="number"/></div>
+                <div className={maxValueInputStyles()}>max value: <input  onInput={MaxValueInput}  type="number"/></div>
+                <div className={startValueInputStyles()}>start value: <input onInput={onInput} type="number"/></div>
             </div>
             <div className={s.secondContainer}>
                 <button disabled={onInputValue < 0 || onInputValue >= maxValue} onClick={setClick}>set</button>
