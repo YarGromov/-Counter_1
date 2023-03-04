@@ -2,36 +2,32 @@
 export type CountStateType = {
     count: number | undefined
     maxValue: number
-    startValue: number
-    onInputValue: number
+    onInputValue: number | undefined
 }
 
 const defaultState: CountStateType = {
-    count: 0,
+    count: undefined,
     maxValue: 0,
-    startValue: 0,
-    onInputValue: 0
+    onInputValue: undefined
 }
 
 export type ReducerActionType = {
-    type: "INCREMENT" | "RESET" | "SET_VALUE" | "MAX_VALUE" | "INPUT_VALUE" | 'ON_INPUT_VALUE' | 'SET_COUNT'
+    type: "INCREMENT" | "RESET" | "SET_VALUE" | "MAX_VALUE" | "INPUT_VALUE" | 'ON_INPUT_VALUE'
     payload: number
 }
 
 export const reducer = (state = defaultState, action: ReducerActionType): CountStateType => {
     switch (action.type) {
         case 'INCREMENT':
-            return {...state, count: state.count && state.count + 1};
+            return {...state, count: (state.count || state.count === 0) ? state.count + 1 : state.count};
         case 'RESET':
-            return {...state, count: state.startValue};
+            return {...state, count: state.onInputValue};
         case 'SET_VALUE':
-            return {...state, startValue: action.payload, count: action.payload};
+            return {...state, onInputValue: action.payload, count: action.payload};
         case 'MAX_VALUE':
             return {...state, maxValue: action.payload};
         case 'ON_INPUT_VALUE':
             return {...state, onInputValue: action.payload};
-        case 'SET_COUNT':
-            return {...state, count: action.payload};
         default:
             return state;
     }

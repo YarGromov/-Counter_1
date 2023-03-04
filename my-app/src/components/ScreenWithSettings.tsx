@@ -5,7 +5,6 @@ import {useDispatch} from "react-redux";
 
 
 export const ScreenWithSettings = () => {
-    const [startValue, setStartValue] = useState<number>(0)
     const [maxValue, setMaxValue] = useState<number>(0)
     const [onInputValue, setOnInputValue] = useState<number>(0)
 
@@ -19,13 +18,8 @@ export const ScreenWithSettings = () => {
         setMaxValue(+e.currentTarget.value);
     }
 
-    const startValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setStartValue(+e.currentTarget.value);
-        dispatch({type: 'SET_COUNT', payload: undefined})
-    }
-
     const setClick = () => {
-        dispatch({type: SET_VALUE, payload: startValue})
+        dispatch({type: SET_VALUE, payload: onInputValue})
         dispatch({type: MAX_VALUE, payload: maxValue})
     }
 
@@ -34,14 +28,15 @@ export const ScreenWithSettings = () => {
         dispatch({type: ON_INPUT_VALUE, payload: +e.currentTarget.value})
     }
     console.log("onInputValue " + onInputValue)
+
      return (
         <div className={s.ScreenWithSettings}>
             <div className={s.firstContainer}>
                 <div>max value: <input  onChange={maxValueHandler} type="number"/></div>
-                <div>start value: <input onInput={onInput}  onChange={startValueHandler} type="number"/></div>
+                <div>start value: <input onInput={onInput}  type="number"/></div>
             </div>
             <div className={s.secondContainer}>
-                <button disabled={startValue <= 0}  onClick={setClick}>set</button>
+                <button disabled={onInputValue < 0 || onInputValue > maxValue}  onClick={setClick}>set</button>
             </div>
         </div>
     );

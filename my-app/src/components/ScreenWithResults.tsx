@@ -8,15 +8,14 @@ export const RESET = 'RESET'
 
 export const ScreenWithResults = () => {
 
-    const [show, setShow] = useState('')
+    const [show, setShow] = useState('Enter values and press "set"')
 
     const dispatch = useDispatch()
     const count = useSelector<AppRootStateType, number | undefined>(state =>  state.count)
-    const startValue = useSelector<AppRootStateType, number>(state => state.startValue)
     const maxValue = useSelector<AppRootStateType, number>(state => state.maxValue)
-    const onInputValue = useSelector<AppRootStateType, number>(state => state.onInputValue)
+    const onInputValue = useSelector<AppRootStateType, number | undefined>(state => state.onInputValue)
 
-    const countStyle = count &&  maxValue  <=  count ? s.red : ''
+    const countStyle = count &&  maxValue  <=  count ? s.red : '';
 
     const incrementFunc = () => {
         dispatch({type: INCREMENT})
@@ -28,11 +27,11 @@ export const ScreenWithResults = () => {
 
 
     useEffect(()=>{
-        if (count) {
+        if (count || count === 0) {
             setShow(count.toString())
-        } else if (onInputValue < 0) {
+        } else if (onInputValue && onInputValue < 0) {
             setShow('Incorrect value!')
-        } else if (onInputValue >=0) {
+        } else if (onInputValue && onInputValue >= 0) {
             setShow ('Enter values and press "set" ')
         }
     },[count, onInputValue])
@@ -44,7 +43,7 @@ export const ScreenWithResults = () => {
             </div>
             <div className={s.secondContainer}>
                 <button disabled={!!count && maxValue <= count} onClick={incrementFunc}>inc</button>
-                <button disabled={count === startValue } onClick={resetFunc}>reset</button>
+                <button disabled={count === onInputValue } onClick={resetFunc}>reset</button>
             </div>
         </div>
     );
