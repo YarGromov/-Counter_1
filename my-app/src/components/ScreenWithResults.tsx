@@ -15,7 +15,7 @@ export const ScreenWithResults = () => {
     const maxValue = useSelector<AppRootStateType, number>(state => state.maxValue)
     const onInputValue = useSelector<AppRootStateType, number | undefined>(state => state.onInputValue)
 
-    const countStyle = count && maxValue <= count ? s.red : '';
+    // const countStyle = count && maxValue <= count ? s.red : '';
 
     const incrementFunc = () => {
         dispatch({type: INCREMENT})
@@ -25,43 +25,61 @@ export const ScreenWithResults = () => {
         dispatch({type: RESET})
     }
 
+    const getStyleForCount = () => {
+        if (show === 'Incorrect value!'){
+            return s.incorrectValue
+        }
+        if (show === 'Enter values and press "set"') {
+            return s.enterValue
+        }
+        if (show !== 'Incorrect value!' && show !== 'Enter values and press "set"' && maxValue === count) {
+            return s.finalNumericValue
+        }
+        if (show !== 'Incorrect value!' && show !== 'Enter values and press "set"' && maxValue !== count) {
+            return s.resultNumValueStyle
+        }
+    }
 
     useEffect(() => {
         console.log(onInputValue)
         if (count || count === 0) {
             setShow(count.toString())
-            if (onInputValue && onInputValue < 0)  {
+            if (onInputValue && onInputValue < 0) {
                 setShow('Incorrect value!')
             }
-        } else if (onInputValue && onInputValue < 0)  {
+        } else if (onInputValue && onInputValue < 0) {
             setShow('Incorrect value!')
         } else if (onInputValue && onInputValue >= 0) {
-            setShow('Enter values and press "set" ')
+            setShow('Enter values and press "set"')
         }
-        if (onInputValue && onInputValue >= maxValue){
-          setShow('Incorrect value!')
-        }
-        if (onInputValue && onInputValue > maxValue ) {
+        if (onInputValue && onInputValue >= maxValue) {
             setShow('Incorrect value!')
         }
-    }, [count, onInputValue])
-
-    console.log('count: ' + count)
-
+        if (onInputValue && onInputValue > maxValue) {
+            setShow('Incorrect value!')
+        }
+        if (maxValue < 0) {
+            setShow('Incorrect value!')
+        }
+    }, [count, onInputValue, maxValue])
 
 
     return (
         <div className={s.ScreenWithResults}>
             <div className={s.firstContainer}>
-                <div className={show === 'Incorrect value!' ? s.red : countStyle}>{show}</div>
+                <div className={getStyleForCount()}>{show}</div>
             </div>
             <div className={s.secondContainer}>
-                <button disabled={!!count && maxValue <= count || count === undefined} onClick={incrementFunc}>inc
+                <button disabled={!!count && maxValue <= count || count === undefined || maxValue === onInputValue}
+                        onClick={incrementFunc}>inc
                 </button>
-                <button disabled={(count === onInputValue) || (onInputValue !== undefined && onInputValue > maxValue)}
-                        onClick={resetFunc}>reset
+                <button
+                    disabled={(count === onInputValue) || (onInputValue !== undefined && onInputValue > maxValue) || maxValue === onInputValue}
+                    onClick={resetFunc}>reset
                 </button>
             </div>
         </div>
     );
 };
+
+//show === 'Incorrect value!' ? s.red : countStyle
