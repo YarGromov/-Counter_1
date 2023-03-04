@@ -17,13 +17,12 @@ export const ScreenWithSettings = () => {
         if (maxValue < 0) {
             return s.incorrectFirstContainer
         }
-        if (maxValue < onInputValue && onInputValue > 0) {
-            return s.incorrectFirstContainer
-        }
         if ((maxValue !== 0 && onInputValue !== 0) && maxValue === onInputValue){
             return s.incorrectFirstContainer
         }
-
+        if ((maxValue < onInputValue) && maxValue === 0){
+            return s.incorrectFirstContainer
+        }
     }
 
     const startValueInputStyles = () => {
