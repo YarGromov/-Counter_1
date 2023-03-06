@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import s from './ScreenWithSettings.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {UniversalButton} from "./UniversalButton";
@@ -9,8 +9,8 @@ export const ScreenWithSettings = () => {
     const [maxValue, setMaxValue] = useState<number>(0)
     const [onInputValue, setOnInputValue] = useState<number>(0)
 
-    const countMaxValue = useSelector<AppRootStateType, number>(state => state.counter.maxValue)
-    const countOnInputValue = useSelector<AppRootStateType, number | undefined>(state => state.counter.onInputValue)
+    const maxValue2 = useSelector<AppRootStateType, number>(state => state.counter.maxValue)
+    const onInputValue2 = useSelector<AppRootStateType, number | undefined>(state => state.counter.onInputValue)
 
     const dispatch = useDispatch();
 
@@ -45,7 +45,7 @@ export const ScreenWithSettings = () => {
         }
     }
 
-    const MaxValueInput = (e: FormEvent<HTMLInputElement>) => {
+    const maxValueInput = (e: FormEvent<HTMLInputElement>) => {
         setMaxValue(+e.currentTarget.value)
         dispatch({type: MAX_VALUE, payload: +e.currentTarget.value})
     }
@@ -62,11 +62,20 @@ export const ScreenWithSettings = () => {
 
     const setDisabled = onInputValue < 0 || onInputValue >= maxValue;
 
+    useEffect(()=>{
+        if (maxValue2){
+            setMaxValue(maxValue2)
+        }
+        if (onInputValue2){
+            setOnInputValue(onInputValue2)
+        }
+    },[maxValue2,onInputValue2])
+
      return (
         <div className={s.ScreenWithSettings}>
             <div className={s.firstContainer}>
-                <div className={maxValueInputStyles()}>max value: <input value={countMaxValue}  onInput={MaxValueInput}  type="number"/></div>
-                <div className={startValueInputStyles()}>start value: <input value={countOnInputValue} onInput={onInput} type="number"/></div>
+                <div className={maxValueInputStyles()}>max value: <input value={maxValue}  onInput={maxValueInput}  type="number"/></div>
+                <div className={startValueInputStyles()}>start value: <input value={onInputValue} onInput={onInput} type="number"/></div>
             </div>
             <div className={s.secondContainer}>
                 <UniversalButton disabled={setDisabled} name={'set'} callback={setClick}/>
