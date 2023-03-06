@@ -12,9 +12,9 @@ export const ScreenWithResults = () => {
     const [show, setShow] = useState('Enter values and press "set"')
 
     const dispatch = useDispatch()
-    const count = useSelector<AppRootStateType, number | undefined>(state => state.count)
-    const maxValue = useSelector<AppRootStateType, number>(state => state.maxValue)
-    const onInputValue = useSelector<AppRootStateType, number | undefined>(state => state.onInputValue)
+    const count = useSelector<AppRootStateType, number | undefined>(state => state.counter.count)
+    const maxValue = useSelector<AppRootStateType, number>(state => state.counter.maxValue)
+    const onInputValue = useSelector<AppRootStateType, number | undefined>(state => state.counter.onInputValue)
 
 
     const incrementFunc = () => {

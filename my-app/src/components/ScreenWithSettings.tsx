@@ -1,12 +1,16 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import s from './ScreenWithSettings.module.css'
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {UniversalButton} from "./UniversalButton";
+import {AppRootStateType} from "../state/store";
 
 
 export const ScreenWithSettings = () => {
     const [maxValue, setMaxValue] = useState<number>(0)
     const [onInputValue, setOnInputValue] = useState<number>(0)
+
+    const countMaxValue = useSelector<AppRootStateType, number>(state => state.counter.maxValue)
+    const countOnInputValue = useSelector<AppRootStateType, number | undefined>(state => state.counter.onInputValue)
 
     const dispatch = useDispatch();
 
@@ -61,8 +65,8 @@ export const ScreenWithSettings = () => {
      return (
         <div className={s.ScreenWithSettings}>
             <div className={s.firstContainer}>
-                <div className={maxValueInputStyles()}>max value: <input  onInput={MaxValueInput}  type="number"/></div>
-                <div className={startValueInputStyles()}>start value: <input onInput={onInput} type="number"/></div>
+                <div className={maxValueInputStyles()}>max value: <input value={countMaxValue}  onInput={MaxValueInput}  type="number"/></div>
+                <div className={startValueInputStyles()}>start value: <input value={countOnInputValue} onInput={onInput} type="number"/></div>
             </div>
             <div className={s.secondContainer}>
                 <UniversalButton disabled={setDisabled} name={'set'} callback={setClick}/>
