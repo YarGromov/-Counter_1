@@ -7,8 +7,7 @@ import {UniversalButton} from "./UniversalButton";
 export const INCREMENT = 'INCREMENT'
 export const RESET = 'RESET'
 
-export const ScreenWithResults = () => {
-
+export const ScreenWithResultsMemo = React.memo(function ScreenWithResults(){
     const [show, setShow] = useState('Enter values and press "set"')
 
     const dispatch = useDispatch()
@@ -76,5 +75,5 @@ export const ScreenWithResults = () => {
             </div>
         </div>
     );
-};
+});
 

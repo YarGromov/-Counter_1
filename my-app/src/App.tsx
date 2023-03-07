@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import {ScreenWithSettings} from "./components/ScreenWithSettings";
-import {ScreenWithResults} from "./components/ScreenWithResults";
+import {ScreenWithSettingsMemo} from "./components/ScreenWithSettings";
+import {ScreenWithResultsMemo} from "./components/ScreenWithResults";
 
 
 
@@ -9,8 +9,8 @@ function App() {
 
     return (
         <div className="App">
-            <ScreenWithSettings/>
-            <ScreenWithResults/>
+            <ScreenWithSettingsMemo/>
+            <ScreenWithResultsMemo/>
         </div>
     );
 }

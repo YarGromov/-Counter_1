@@ -1,16 +1,16 @@
-import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import s from './ScreenWithSettings.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {UniversalButton} from "./UniversalButton";
 import {AppRootStateType} from "../state/store";
 
 
-export const ScreenWithSettings = () => {
+export const ScreenWithSettingsMemo = React.memo(function ScreenWithSettings() {
     const [maxValue, setMaxValue] = useState<number>(0)
     const [onInputValue, setOnInputValue] = useState<number>(0)
 
-    const maxValue2 = useSelector<AppRootStateType, number>(state => state.counter.maxValue)
-    const onInputValue2 = useSelector<AppRootStateType, number | undefined>(state => state.counter.onInputValue)
+    const maxValueFromReducer = useSelector<AppRootStateType, number>(state => state.counter.maxValue)
+    const onInputValueFromReducer = useSelector<AppRootStateType, number | undefined>(state => state.counter.onInputValue)
 
     const dispatch = useDispatch();
 
@@ -22,10 +22,13 @@ export const ScreenWithSettings = () => {
         if (maxValue < 0) {
             return s.incorrectFirstContainer
         }
-        if ((maxValue !== 0 && onInputValue !== 0) && maxValue === onInputValue){
+        if ((maxValue !== 0 && onInputValue !== 0) && maxValue === onInputValue) {
             return s.incorrectFirstContainer
         }
-        if ((maxValue < onInputValue) && maxValue === 0){
+        if ((maxValue < onInputValue) && maxValue === 0) {
+            return s.incorrectFirstContainer
+        }
+        if (onInputValue > maxValue) {
             return s.incorrectFirstContainer
         }
     }
@@ -34,13 +37,13 @@ export const ScreenWithSettings = () => {
         if (onInputValue < 0) {
             return s.incorrectFirstContainer
         }
-        if ((maxValue !== 0 && onInputValue !== 0) && maxValue === onInputValue){
+        if ((maxValue !== 0 && onInputValue !== 0) && maxValue === onInputValue) {
             return s.incorrectFirstContainer
         }
         if (maxValue > 0 && onInputValue > maxValue) {
             return s.incorrectFirstContainer
         }
-        if((maxValue === 0) && onInputValue > maxValue) {
+        if ((maxValue === 0) && onInputValue > maxValue) {
             return s.incorrectFirstContainer
         }
     }
@@ -62,24 +65,26 @@ export const ScreenWithSettings = () => {
 
     const setDisabled = onInputValue < 0 || onInputValue >= maxValue;
 
-    useEffect(()=>{
-        if (maxValue2){
-            setMaxValue(maxValue2)
+    useEffect(() => {
+        if (maxValueFromReducer) {
+            setMaxValue(maxValueFromReducer)
         }
-        if (onInputValue2){
-            setOnInputValue(onInputValue2)
+        if (onInputValueFromReducer) {
+            setOnInputValue(onInputValueFromReducer)
         }
-    },[maxValue2,onInputValue2])
+    }, [maxValueFromReducer, onInputValueFromReducer])
 
-     return (
+    return (
         <div className={s.ScreenWithSettings}>
             <div className={s.firstContainer}>
-                <div className={maxValueInputStyles()}>max value: <input value={maxValue}  onInput={maxValueInput}  type="number"/></div>
-                <div className={startValueInputStyles()}>start value: <input value={onInputValue} onInput={onInput} type="number"/></div>
+                <div className={maxValueInputStyles()}>max value: <input value={maxValue} onInput={maxValueInput}
+                                                                         type="number"/></div>
+                <div className={startValueInputStyles()}>start value: <input value={onInputValue} onInput={onInput}
+                                                                             type="number"/></div>
             </div>
             <div className={s.secondContainer}>
                 <UniversalButton disabled={setDisabled} name={'set'} callback={setClick}/>
             </div>
         </div>
     );
-};
+});
